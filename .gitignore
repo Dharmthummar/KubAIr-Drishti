@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Project specific
+temp_pdfs/
+uploads/
+output/
+*.db
+token.json
+credentials.json
+dist/
+build/
+*.spec
+*.zip
+KubAIr_Drishti_beta*/
+JWFinanceApp_beta*/

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Automation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand-stack">
+                <h1 class="brand-title">KubAI₹</h1>
+                <div class="brand-subtitle-wrapper">
+                    <span class="brand-subtitle">DRISHTI</span>
+                </div>
+                <p class="tagline">the Invoice Processing & Reconciliation optix</p>
+            </div>
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="subtitle">Total Loaded</div>
+                    <div class="metric-value" id="count-total">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="subtitle">Processed</div>
+                    <div class="metric-value" id="count-processed">0</div>
+                </div>
+                <div class="metric-card btn-metric" onclick="toggleConfig()">
+                    <div class="subtitle">Settings</div>
+                    <div class="metric-value">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                Upload Excel
+            </button>
+            <input type="file" id="file-input" hidden accept=".xlsx,.xls,.csv" onchange="handleFileUpload(event)">
+            
+            <button class="btn" onclick="downloadAllZip()">
+                Download ZIP
+            </button>
+            <button class="btn" onclick="printAll()">
+                Master Print
+            </button>
+            <button class="btn" onclick="showCurrentBatch()">
+                Current Batch
+            </button>
+            <button class="btn" onclick="showHistory()">
+                History
+            </button>
+            <span id="processing-status" class="subtitle hidden">Processing...</span>
+        </div>
+
+        <!-- Configuration Modal -->
+        <div id="config-modal" class="modal hidden">
+            <div class="modal-content config-panel">
+                <div class="section-header">
+                    <div>
+                        <h2>Gemini Configuration</h2>
+                        <p class="subtitle" id="config-status">Loading configuration...</p>
+                    </div>
+                    <div class="action-group">
+                        <button class="btn btn-primary" onclick="saveConfig()">Save Config</button>
+                        <button class="btn" onclick="toggleConfig()">Close</button>
+                    </div>
+                </div>
+                <div class="config-grid">
+                    <label class="field">
+                        <span>API Key</span>
+                        <input type="password" id="config-api-key" placeholder="Leave blank to keep existing key">
+                    </label>
+                    <label class="field">
+                        <span>Chat Model</span>
+                        <input type="text" id="config-model" placeholder="gemini-3.1-flash-lite-preview">
+                    </label>
+                    <label class="field">
+                        <span>OCR Model</span>
+                        <input type="text" id="config-ocr-model" placeholder="gemini-3.1-flash-lite-preview">
+                    </label>
+                    <div class="field">
+                        <span>Get API Key</span>
+                        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="btn btn-secondary text-center">
+                            Google AI Studio
+                        </a>
+                    </div>
+                    <label class="check-field">
+                        <input type="checkbox" id="config-fast-mode">
+                        <span>Fast Mode</span>
+                    </label>
+                    <label class="check-field">
+                        <input type="checkbox" id="config-pdf-ocr">
+                        <span>PDF OCR</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="upload-prompt" class="upload-zone" onclick="document.getElementById('file-input').click()">
+            <h3>Upload ERP Excel Report</h3>
+            <p class="subtitle">Click here to browse or drag and drop your .xlsx file</p>
+        </div>
+
+        <div class="layout-grid hidden" id="main-content">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bill No.</th>
+                            <th>Bill Date</th>
+                            <th>Party Name</th>
+                            <th>Inward No</th>
+                            <th>Bill Due</th>
+                            <th>Amount</th>
+                            <th>Book</th>
+                            <th>Debit Note</th>
+                            <th>Due Stamp</th>
+                            <th>Status</th>
+                            <th>Alerts</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-tbody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Floating Chat Assistant -->
+        <div class="chat-panel minimized" id="chat-panel">
+            <div class="chat-header" onclick="toggleChat()">
+                <span>Finance Assistant</span>
+                <button class="chat-toggle-btn" id="chat-toggle-btn">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+                </button>
+            </div>
+            <div class="chat-content" id="chat-content">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-bubble bot">
+                        Hello. I've analyzed the current batch. Ask me any questions.
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleEnter(event)">
+                    <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden" id="history-content">
+            <div class="section-header">
+                <div>
+                    <h2>History</h2>
+                    <p class="subtitle" id="history-summary">Recent processed invoices</p>
+                </div>
+                <div class="action-group">
+                    <button class="btn btn-danger" onclick="clearHistory()">Clear History</button>
+                    <button class="btn" onclick="loadHistory()">Refresh</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Processed</th>
+                            <th>Bill No.</th>
+                            <th>Party Name</th>
+                            <th>Inward No</th>
+                            <th>Bill Date</th>
+                            <th>Bill Due</th>
+                            <th>Amount</th>
+                            <th>Debit Note</th>
+                            <th>Due Stamp</th>
+                            <th>Status</th>
+                            <th>Alerts</th>
+                            <th>PDF</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody">
+                        <tr>
+                            <td colspan="12" class="text-center">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
