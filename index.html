@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KubAI₹ Drishti | Next-Gen Finance Automation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.4);
+            --bg-dark: #0f172a;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            filter: blur(150px);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .brand-stack {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            z-index: 1;
+        }
+
+        .brand-title {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin: 0;
+        }
+
+        .brand-subtitle-wrapper {
+            width: 100%;
+            text-align: justify;
+            text-align-last: justify;
+            margin-top: 5px;
+        }
+
+        .brand-subtitle {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+
+        .cta-group {
+            margin-top: 3rem;
+            display: flex;
+            gap: 1.5rem;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px var(--primary-glow);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: white;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Use Cases */
+        .section {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: #020617;
+            padding: 6rem 2rem;
+            border-radius: 40px;
+            margin: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 40px var(--primary-glow);
+            margin-bottom: 2rem;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-icon {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-icon:hover {
+            color: white;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .brand-title { font-size: 3rem; }
+            .brand-subtitle { font-size: 1rem; }
+            .btn { width: 100%; text-align: center; }
+            .cta-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="brand-stack">
+            <h1 class="brand-title">KubAI₹</h1>
+            <div class="brand-subtitle-wrapper">
+                <span class="brand-subtitle">DRISHTI</span>
+            </div>
+        </div>
+        <p class="tagline">Empowering financial precision through AI Vision and automated reconciliation.</p>
+        
+        <div class="cta-group">
+            <a href="https://github.com/Dharmthummar/KubAIr-Drishti/releases/download/v1.0.0-beta/KubAIr_Drishti_beta14.zip" class="btn btn-primary">
+                Download Latest Release (Beta 14)
+            </a>
+            <a href="https://github.com/Dharmthummar/KubAIr-Drishti" class="btn btn-outline">
+                View Source on GitHub
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Why KubAI₹ Drishti?</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>AI-Vision Auditing</h3>
+                <p>Advanced OCR powered by Gemini to detect handwritten due dates, rubber stamps, and specialized financial marks on any PDF.</p>
+            </div>
+            <div class="card">
+                <h3>Debit Note Detection</h3>
+                <p>Automated identification of shortage claims and debit notes to prevent overpayment and ensure accurate ledger entries.</p>
+            </div>
+            <div class="card">
+                <h3>Smart Reconciliation</h3>
+                <p>Seamless matching between ERP Excel reports and actual PDF invoices with automated inward numbering and page stamping.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <img src="https://media.licdn.com/dms/image/v2/D4D03AQF3L-abvCLm8w/profile-displayphoto-shrink_800_800/B4DZeTAGjRHkAg-/0/1750517968068?e=1779321600&v=beta&t=JBLIM2T-dZQCX7-_bPlIXUu0RwxGLDJTICZgyN9mAJ4" alt="Dharm Thummar" class="profile-img">
+        <h2 class="profile-name">Dharm Thummar</h2>
+        <p class="profile-role">Creator of KubAI₹ Drishti</p>
+        
+        <div class="social-links">
+            <a href="https://linkedin.com/in/dharmthummar" class="social-icon" target="_blank">LinkedIn</a>
+            <a href="https://twitter.com/dharmthummar" class="social-icon" target="_blank">Twitter</a>
+            <a href="https://github.com/dharmthummar" class="social-icon" target="_blank">GitHub</a>
+            <a href="https://instagram.com/dharm_1602" class="social-icon" target="_blank">Instagram</a>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 KubAI₹ Drishti. Designed for financial excellence.
+    </footer>
+
+</body>
+</html>
